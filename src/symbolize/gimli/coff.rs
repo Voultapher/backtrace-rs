@@ -66,7 +66,7 @@ impl<'a> Object<'a> {
             let va = usize::try_from(section.virtual_address.get(LE)).ok()?;
             symbols.push((addr + va + image_base, sym));
         }
-        symbols.sort_unstable_by_key(|x| x.0);
+        tiny_sort::unstable::sort_by_key(&mut symbols, |x| x.0);
         Some(Object {
             data,
             sections,

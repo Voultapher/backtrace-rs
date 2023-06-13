@@ -155,7 +155,7 @@ impl<'a> Object<'a> {
                 }
             })
             .collect::<Vec<_>>();
-        syms.sort_unstable_by_key(|s| s.address);
+        tiny_sort::unstable::sort_by_key(&mut syms, |s| s.address);
         Some(Object {
             endian,
             data,

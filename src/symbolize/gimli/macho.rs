@@ -201,10 +201,10 @@ impl<'a> Object<'a> {
                     // We never search object file symbols by address.
                     // Instead, we already know the symbol name from the executable, and we
                     // need to search by name to find the matching symbol in the object file.
-                    syms.sort_unstable_by_key(|(name, _)| *name);
+                    tiny_sort::unstable::sort_by_key(&mut syms, |(name, _)| *name);
                     syms_sort_by_name = true;
                 } else {
-                    syms.sort_unstable_by_key(|(_, addr)| *addr);
+                    tiny_sort::unstable::sort_by_key(&mut syms, |(_, addr)| *addr);
                     let map = symbols.object_map(endian);
                     object_mappings.resize_with(map.objects().len(), || None);
                     object_map = Some(map);
